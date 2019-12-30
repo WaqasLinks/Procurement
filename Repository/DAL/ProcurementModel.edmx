@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProcurementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BOM">
+          <Key>
+            <PropertyRef Name="RowAuto" />
+          </Key>
+          <Property Name="RowAuto" Type="decimal" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectCode" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="BOMTypeCode" Type="smallint" />
+          <Property Name="SerialNo" Type="nvarchar" MaxLength="500" />
+          <Property Name="SORef" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProductCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="Product" Type="nvarchar" MaxLength="500" />
+          <Property Name="CostHead" Type="nvarchar" MaxLength="500" />
+          <Property Name="CostSubHead" Type="nvarchar" MaxLength="500" />
+          <Property Name="System" Type="nvarchar" MaxLength="500" />
+          <Property Name="Area" Type="nvarchar" MaxLength="500" />
+          <Property Name="Panel" Type="nvarchar" MaxLength="500" />
+          <Property Name="Category" Type="nvarchar" MaxLength="500" />
+          <Property Name="Manufacturer" Type="nvarchar" MaxLength="500" />
+          <Property Name="PartNo" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Qty" Type="nvarchar" MaxLength="500" />
+          <Property Name="UnitCost" Type="nvarchar" MaxLength="500" />
+          <Property Name="ExCost" Type="nvarchar" MaxLength="500" />
+          <Property Name="UnitPrice" Type="nvarchar" MaxLength="500" />
+          <Property Name="ExPrice" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="BOMType">
+          <Key>
+            <PropertyRef Name="BOMTypeCode" />
+          </Key>
+          <Property Name="BOMDescription" Type="varchar" MaxLength="50" />
+          <Property Name="BOMTypeCode" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeCode" />
+          </Key>
+          <Property Name="EmployeeCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HOD" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeTypeCode" Type="smallint" />
+          <Property Name="ProjectCode" Type="decimal" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmployeeTypeCode" />
+          </Key>
+          <Property Name="EmployeeType" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeTypeCode" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectCode" />
+          </Key>
+          <Property Name="ProjectCode" Type="decimal" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="50" />
+          <Property Name="EndUser" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_BOM_BOMType">
+          <End Role="BOMType" Type="Self.BOMType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOMType">
+              <PropertyRef Name="BOMTypeCode" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="BOMTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectCode" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ProjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_EmployeeType">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmployeeTypeCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployeeTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Project1">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="ProjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProcurementModelStoreContainer">
+          <EntitySet Name="BOM" EntityType="Self.BOM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BOMType" EntityType="Self.BOMType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BOM_BOMType" Association="Self.FK_BOM_BOMType">
+            <End Role="BOMType" EntitySet="BOMType" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_Project" Association="Self.FK_BOM_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_EmployeeType" Association="Self.FK_Employee_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Project1" Association="Self.FK_Employee_Project1">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProcurementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProcurementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BOMs" EntityType="ProcurementModel.BOM" />
+          <EntitySet Name="BOMTypes" EntityType="ProcurementModel.BOMType" />
+          <EntitySet Name="Employees" EntityType="ProcurementModel.Employee" />
+          <EntitySet Name="EmployeeTypes" EntityType="ProcurementModel.EmployeeType" />
+          <EntitySet Name="Projects" EntityType="ProcurementModel.Project" />
+          <AssociationSet Name="FK_BOM_BOMType" Association="ProcurementModel.FK_BOM_BOMType">
+            <End Role="BOMType" EntitySet="BOMTypes" />
+            <End Role="BOM" EntitySet="BOMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_Project" Association="ProcurementModel.FK_BOM_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="BOM" EntitySet="BOMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_EmployeeType" Association="ProcurementModel.FK_Employee_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Project1" Association="ProcurementModel.FK_Employee_Project1">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BOM">
+          <Key>
+            <PropertyRef Name="RowAuto" />
+          </Key>
+          <Property Name="ProjectCode" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="RowAuto" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BOMTypeCode" Type="Int16" />
+          <Property Name="SerialNo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SORef" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProductCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Product" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CostHead" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CostSubHead" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="System" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Panel" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Manufacturer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PartNo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UnitCost" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ExCost" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ExPrice" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOMType" Relationship="ProcurementModel.FK_BOM_BOMType" FromRole="BOM" ToRole="BOMType" />
+          <NavigationProperty Name="Project" Relationship="ProcurementModel.FK_BOM_Project" FromRole="BOM" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="BOMType">
+          <Key>
+            <PropertyRef Name="BOMTypeCode" />
+          </Key>
+          <Property Name="BOMDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BOMTypeCode" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="BOMs" Relationship="ProcurementModel.FK_BOM_BOMType" FromRole="BOMType" ToRole="BOM" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeCode" />
+          </Key>
+          <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HOD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeTypeCode" Type="Int16" />
+          <Property Name="ProjectCode" Type="Decimal" Precision="10" Scale="0" />
+          <NavigationProperty Name="EmployeeType" Relationship="ProcurementModel.FK_Employee_EmployeeType" FromRole="Employee" ToRole="EmployeeType" />
+          <NavigationProperty Name="Project" Relationship="ProcurementModel.FK_Employee_Project1" FromRole="Employee" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmployeeTypeCode" />
+          </Key>
+          <Property Name="EmployeeType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeTypeCode" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="ProcurementModel.FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectCode" />
+          </Key>
+          <Property Name="ProjectCode" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOMs" Relationship="ProcurementModel.FK_BOM_Project" FromRole="Project" ToRole="BOM" />
+          <NavigationProperty Name="Employees" Relationship="ProcurementModel.FK_Employee_Project1" FromRole="Project" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_BOM_BOMType">
+          <End Type="ProcurementModel.BOMType" Role="BOMType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ProcurementModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOMType">
+              <PropertyRef Name="BOMTypeCode" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="BOMTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_Project">
+          <End Type="ProcurementModel.Project" Role="Project" Multiplicity="0..1" />
+          <End Type="ProcurementModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectCode" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ProjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_EmployeeType">
+          <End Type="ProcurementModel.EmployeeType" Role="EmployeeType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ProcurementModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmployeeTypeCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployeeTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Project1">
+          <End Type="ProcurementModel.Project" Role="Project" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ProcurementModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="ProjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProcurementModelStoreContainer" CdmEntityContainer="ProcurementEntities">
+          <EntitySetMapping Name="BOMs">
+            <EntityTypeMapping TypeName="ProcurementModel.BOM">
+              <MappingFragment StoreEntitySet="BOM">
+                <ScalarProperty Name="ExPrice" ColumnName="ExPrice" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ExCost" ColumnName="ExCost" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PartNo" ColumnName="PartNo" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Panel" ColumnName="Panel" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="System" ColumnName="System" />
+                <ScalarProperty Name="CostSubHead" ColumnName="CostSubHead" />
+                <ScalarProperty Name="CostHead" ColumnName="CostHead" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+                <ScalarProperty Name="SORef" ColumnName="SORef" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="BOMTypeCode" ColumnName="BOMTypeCode" />
+                <ScalarProperty Name="RowAuto" ColumnName="RowAuto" />
+                <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BOMTypes">
+            <EntityTypeMapping TypeName="ProcurementModel.BOMType">
+              <MappingFragment StoreEntitySet="BOMType">
+                <ScalarProperty Name="BOMTypeCode" ColumnName="BOMTypeCode" />
+                <ScalarProperty Name="BOMDescription" ColumnName="BOMDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ProcurementModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+                <ScalarProperty Name="EmployeeTypeCode" ColumnName="EmployeeTypeCode" />
+                <ScalarProperty Name="HOD" ColumnName="HOD" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTypes">
+            <EntityTypeMapping TypeName="ProcurementModel.EmployeeType">
+              <MappingFragment StoreEntitySet="EmployeeType">
+                <ScalarProperty Name="EmployeeTypeCode" ColumnName="EmployeeTypeCode" />
+                <ScalarProperty Name="EmployeeType1" ColumnName="EmployeeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="ProcurementModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="EndUser" ColumnName="EndUser" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
