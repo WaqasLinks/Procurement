@@ -79,7 +79,7 @@
             // 
             // txtBOMFilePath
             // 
-            this.txtBOMFilePath.Location = new System.Drawing.Point(19, 66);
+            this.txtBOMFilePath.Location = new System.Drawing.Point(10, 63);
             this.txtBOMFilePath.Multiline = true;
             this.txtBOMFilePath.Name = "txtBOMFilePath";
             this.txtBOMFilePath.Size = new System.Drawing.Size(885, 30);
@@ -90,7 +90,7 @@
             this.LoadBOM.BackColor = System.Drawing.Color.SteelBlue;
             this.LoadBOM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LoadBOM.ForeColor = System.Drawing.Color.Transparent;
-            this.LoadBOM.Location = new System.Drawing.Point(910, 65);
+            this.LoadBOM.Location = new System.Drawing.Point(901, 62);
             this.LoadBOM.Name = "LoadBOM";
             this.LoadBOM.Size = new System.Drawing.Size(97, 32);
             this.LoadBOM.TabIndex = 1;
@@ -127,7 +127,7 @@
             // 
             // txtProjectEndUser
             // 
-            this.txtProjectEndUser.Location = new System.Drawing.Point(432, 28);
+            this.txtProjectEndUser.Location = new System.Drawing.Point(423, 25);
             this.txtProjectEndUser.Multiline = true;
             this.txtProjectEndUser.Name = "txtProjectEndUser";
             this.txtProjectEndUser.Size = new System.Drawing.Size(130, 30);
@@ -135,7 +135,7 @@
             // 
             // txtProjectCustomerName
             // 
-            this.txtProjectCustomerName.Location = new System.Drawing.Point(294, 28);
+            this.txtProjectCustomerName.Location = new System.Drawing.Point(285, 25);
             this.txtProjectCustomerName.Multiline = true;
             this.txtProjectCustomerName.Name = "txtProjectCustomerName";
             this.txtProjectCustomerName.Size = new System.Drawing.Size(130, 30);
@@ -143,7 +143,7 @@
             // 
             // txtProjectName
             // 
-            this.txtProjectName.Location = new System.Drawing.Point(157, 28);
+            this.txtProjectName.Location = new System.Drawing.Point(148, 25);
             this.txtProjectName.Multiline = true;
             this.txtProjectName.Name = "txtProjectName";
             this.txtProjectName.Size = new System.Drawing.Size(130, 30);
@@ -151,7 +151,7 @@
             // 
             // txtProjectCode
             // 
-            this.txtProjectCode.Location = new System.Drawing.Point(19, 28);
+            this.txtProjectCode.Location = new System.Drawing.Point(10, 25);
             this.txtProjectCode.Multiline = true;
             this.txtProjectCode.Name = "txtProjectCode";
             this.txtProjectCode.ReadOnly = true;
@@ -161,7 +161,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(429, 8);
+            this.label4.Location = new System.Drawing.Point(420, 5);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 17);
             this.label4.TabIndex = 12;
@@ -170,7 +170,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(291, 8);
+            this.label3.Location = new System.Drawing.Point(282, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(109, 17);
             this.label3.TabIndex = 11;
@@ -179,7 +179,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(154, 8);
+            this.label2.Location = new System.Drawing.Point(145, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 17);
             this.label2.TabIndex = 10;
@@ -188,7 +188,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 8);
+            this.label1.Location = new System.Drawing.Point(7, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 17);
             this.label1.TabIndex = 9;
@@ -225,7 +225,7 @@
             this.tabDesignBOM.Location = new System.Drawing.Point(4, 25);
             this.tabDesignBOM.Name = "tabDesignBOM";
             this.tabDesignBOM.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDesignBOM.Size = new System.Drawing.Size(1243, 465);
+            this.tabDesignBOM.Size = new System.Drawing.Size(1348, 679);
             this.tabDesignBOM.TabIndex = 1;
             this.tabDesignBOM.Text = "Design BOM";
             this.tabDesignBOM.UseVisualStyleBackColor = true;
@@ -239,7 +239,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(1237, 459);
+            this.dataGridView2.Size = new System.Drawing.Size(1342, 673);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseClick);
             // 
@@ -249,7 +249,7 @@
             this.tabActualBOM.Location = new System.Drawing.Point(4, 25);
             this.tabActualBOM.Name = "tabActualBOM";
             this.tabActualBOM.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActualBOM.Size = new System.Drawing.Size(1243, 465);
+            this.tabActualBOM.Size = new System.Drawing.Size(1348, 679);
             this.tabActualBOM.TabIndex = 2;
             this.tabActualBOM.Text = "Actual BOM";
             this.tabActualBOM.UseVisualStyleBackColor = true;
@@ -263,7 +263,7 @@
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(1237, 459);
+            this.dataGridView3.Size = new System.Drawing.Size(1342, 673);
             this.dataGridView3.TabIndex = 3;
             // 
             // btnCancel

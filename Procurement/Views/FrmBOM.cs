@@ -12,6 +12,7 @@ using System.Data.OleDb;
 using Repository.DAL;
 using Procurement.Controllers;
 using System.Reflection;
+using Procurement.Views;
 
 namespace Procurement
 {
@@ -183,9 +184,25 @@ namespace Procurement
 
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
+            FrmWait frmwait = new FrmWait();
+            frmwait.Show();
+            
+            //Application.DoEvents();
             this.Enabled = false;
+            
+            await Task.Run(() => SaveToRepository());
+
+            
+            //_LstProjects
+            this.Enabled = true;
+            frmwait.Close();
+            
+
+        }
+        private void SaveToRepository()
+        {
             Project projModel;
             if (_newMode == true)
             {
@@ -193,6 +210,7 @@ namespace Procurement
                 projModel = FillProjectModel();
                 _pc = new ProjectController(projModel);
                 _pc.Save();
+                Application.DoEvents();
                 //------------------
 
 
@@ -240,10 +258,7 @@ namespace Procurement
                 _LstProjects.Remove(proj);
                 _LstProjects.Add(projModel);
             }
-            
 
-            //_LstProjects
-            this.Enabled = true;
         }
         private List<BOM> FillBOMModel1(ref Project pProjectModel)
         {
@@ -674,8 +689,10 @@ namespace Procurement
 
         private void itemDeleteProject_Click(object sender, EventArgs e)
         {
+            
             if (dataGridViewProjects.Rows.Count > 0 && dataGridViewProjects.SelectedRows.Count >0 )
             {
+                this.Enabled = false;
                 // int selectedrowindex = dataGridViewProjects.SelectedCells[0].RowIndex;
                 // DataGridViewRow selectedRow = dataGridViewProjects.Rows[selectedrowindex];
                 // _projectCode = Convert.ToDecimal(selectedRow.Cells["ProjectCode"].Value);
@@ -694,6 +711,7 @@ namespace Procurement
                     //_LstProjects.RemoveAt()
                     _pc.DeleteModel(proj.ProjectCode);
                 }
+                this.Enabled = true;
 
             }
 
