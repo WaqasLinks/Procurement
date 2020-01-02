@@ -12,7 +12,7 @@ namespace Procurement.Controllers
         public BOMController()
         {
             interfaceObj = new ProcurementRepository<BOM>();
-         
+
         }
         public BOMController(BOM pBomModel)
         {
@@ -34,19 +34,29 @@ namespace Procurement.Controllers
             interfaceObj.InsertModel(_gBomModel);
             interfaceObj.Save();
         }
-        public void SaveList()
+        public void SaveList(decimal ProjectCode,byte bomTypeCode)
         {
             //if (ModelState.IsValid)
             //{ 
-                foreach (BOM bomModel in _gLstBomModel)
+            //interfaceObj.DeleteModel(ProjectCode);
+             List<BOM> LstBoms = GetModels().AsQueryable().Where(x=>x.ProjectCode==ProjectCode && x.BOMTypeCode==bomTypeCode).ToList<BOM>(); //.Products.where(x => x.StoreId == store.StoreId)
+            if (LstBoms.Count > 0)
+            {
+                foreach (BOM bomModel in LstBoms)
+                {
+                    interfaceObj.DeleteModel(bomModel.RowAuto);
+                }
+                 
+            }
+            foreach (BOM bomModel in _gLstBomModel)
             {
                 interfaceObj.InsertModel(bomModel);
             }
-            interfaceObj.Save();
+            if (_gLstBomModel.Count > 0) interfaceObj.Save();
             //}
 
         }
-        
+
         public List<BOM> GetModels()
         {
             return interfaceObj.GetModels().ToList<BOM>();

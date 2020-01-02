@@ -17,16 +17,9 @@ namespace Procurement
 {
     public partial class FrmBOM : Form
     {
-        ProjectController _pc;
-        BOMController _bc;
-        List<Project> _LstProjects;
-        DataTable _dtProjects;
         DataTable _dtSalesBOM;
         DataTable _dtDesignBOM;
-        DataTable _dtActualBOM;
         decimal _projectCode;
-        bool _newMode;
-        
         public FrmBOM()
         {
             InitializeComponent();
@@ -36,49 +29,11 @@ namespace Procurement
         {
             try
             {
-                _pc = new ProjectController();
-                _LstProjects = _pc.GetModels();
+                ProjectController pc = new ProjectController();
+                List<Project> oblst = pc.GetModels();
                 //insert into the list
+                dataGridViewProjects.DataSource = oblst;
 
-                //list.Where(x => x.BOMTypeCode == 1).Select(x => new
-                //{
-                //    x.SORef,
-                //    x.SerialNo,
-                //    x.ProductCategory,
-                //    x.Product,
-                //    x.CostHead,
-                //    x.CostSubHead,
-                //    x.System,
-                //    x.Area,
-                //    x.Panel,
-                //    x.Category,
-                //    x.Manufacturer,
-                //    x.PartNo,
-                //    x.Description,
-                //    x.Qty,
-                //    x.UnitCost,
-                //    x.ExCost,
-                //    x.UnitPrice,
-                //    x.ExPrice
-                //});
-
-
-                _dtProjects = ToDataTable<Project>(_LstProjects);
-                _dtProjects.Columns.Remove("BOMs");
-                _dtProjects.Columns.Remove("Employees");
-
-                DataView dv = _dtProjects.DefaultView;
-                dv.Sort = "ProjectCode desc";
-                _dtProjects = dv.ToTable();
-
-                dataGridViewProjects.DataSource = _dtProjects;
-
-                if (_LstProjects.Count == 0)
-                {
-                    _pc.ReseedProjectPk();
-                    _newMode = true;
-                    txtProjectCode.Text = (1).ToString();
-                }
             }
             catch (Exception ex)
             {
@@ -99,10 +54,10 @@ namespace Procurement
                 if (dlg_im.ShowDialog() == DialogResult.OK)
                 {
                     //dataGridView1.Rows.Clear();
-                    txtBOMFilePath.Text = dlg_im.FileName;
+                    textBox1.Text = dlg_im.FileName;
 
 
-                    string constr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + txtBOMFilePath.Text + ";Extended Properties='Excel 12.0 XML;HDR=YES;';";
+                    string constr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + textBox1.Text + ";Extended Properties='Excel 12.0 XML;HDR=YES;';";
 
                     OleDbConnection Con = new OleDbConnection(constr);
 
@@ -153,7 +108,7 @@ namespace Procurement
             }
         }
 
-        private void itmCopyAllToDesignBOM_Click(object sender, EventArgs e)
+        private void mnuCopyAllToDesignBOM_Click(object sender, EventArgs e)
         {
             _dtDesignBOM = new DataTable();
             _dtDesignBOM = _dtSalesBOM.Copy();
@@ -172,7 +127,7 @@ namespace Procurement
                 MenuStripDesignBOM.Show(Cursor.Position);
             }
         }
-        private void itmCopyAllToActualBOM_Click(object sender, EventArgs e)
+        private void mnuCopyAllToActualBOM_Click(object sender, EventArgs e)
         {
             DataTable dtActualBOM = new DataTable();
             dtActualBOM = _dtDesignBOM.Copy();
@@ -185,67 +140,27 @@ namespace Procurement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.Enabled = false;
-            Project projModel;
-            if (_newMode == true)
-            {
-                //SaveData();
-                projModel = FillProjectModel();
-                _pc = new ProjectController(projModel);
-                _pc.Save();
-                //------------------
 
-
-                DataRow NewRow = _dtProjects.NewRow();
-                NewRow[0] = decimal.Parse(txtProjectCode.Text);
-                NewRow[1] = txtProjectName.Text;
-                NewRow[2] = txtProjectCustomerName.Text;
-                NewRow[3] = txtProjectEndUser.Text;
-
-                _dtProjects.Rows.Add(NewRow);
-                dataGridViewProjects.DataSource = _dtProjects;
-                //dataGridViewProjects.DataBindings();
-                _newMode = false;
-            }
-            else
-            {
-                //UpdateData();
-                projModel = FillProjectModel();
-                _pc = new ProjectController(projModel);
-                _pc.UpdateModel(projModel);
-
-            }
-
+            Project projModel = FillProjectModel();
+            ProjectController pc = new ProjectController(projModel);
+            pc.Save();
+            //------------------
+            BOMController bc;
             List<BOM> LstObjBom;
-            LstObjBom = FillBOMModel1(ref projModel);
-            _bc = new BOMController(LstObjBom);
-            _bc.SaveList(projModel.ProjectCode, 1);
+
+            LstObjBom = FillBOMModel1(projModel.ProjectCode);
+            bc = new BOMController(LstObjBom);
+            bc.SaveList();
             //---
-            LstObjBom = FillBOMModel2(ref projModel);
-            _bc = new BOMController(LstObjBom);
-            _bc.SaveList(projModel.ProjectCode, 2);
+            LstObjBom = FillBOMModel2(projModel.ProjectCode);
+            bc = new BOMController(LstObjBom);
+            bc.SaveList();
             //---
-            LstObjBom = FillBOMModel3(ref projModel);
-            _bc = new BOMController(LstObjBom);
-            _bc.SaveList(projModel.ProjectCode, 3);
-
-            Project proj = _LstProjects.Where(book => book.ProjectCode == projModel.ProjectCode).FirstOrDefault();
-
-            if (proj == null)
-            {
-                _LstProjects.Add(projModel);
-            }
-            else
-            {
-                _LstProjects.Remove(proj);
-                _LstProjects.Add(projModel);
-            }
-            
-
-            //_LstProjects
-            this.Enabled = true;
+            LstObjBom = FillBOMModel3(projModel.ProjectCode);
+            bc = new BOMController(LstObjBom);
+            bc.SaveList();
         }
-        private List<BOM> FillBOMModel1(ref Project pProjectModel)
+        private List<BOM> FillBOMModel1(decimal pProjectModel)
         {
             List<BOM> LstObjBom = new List<BOM>();
             foreach (DataGridViewRow gvr in dataGridView1.Rows)
@@ -281,7 +196,7 @@ namespace Procurement
                     BOM lObjBom = new BOM();
                     //lObjBom.BOMCode = (string)gvr.Cells[0].Value;
                     lObjBom.BOMTypeCode = 1;//(string)gvr.Cells[0].Value;
-                    lObjBom.ProjectCode = pProjectModel.ProjectCode;
+                    lObjBom.ProjectCode = pProjectModel;
 
                     lObjBom.SORef = gvr.Cells[0].Value.ToString();
                     lObjBom.SerialNo = gvr.Cells[1].Value.ToString();
@@ -303,7 +218,7 @@ namespace Procurement
                     lObjBom.ExPrice = gvr.Cells[17].Value.ToString();
 
                     LstObjBom.Add(lObjBom);
-                    pProjectModel.BOMs.Add(lObjBom);
+
 
                 }
 
@@ -313,7 +228,7 @@ namespace Procurement
 
         }
 
-        private List<BOM> FillBOMModel2(ref Project pProjectModel)
+        private List<BOM> FillBOMModel2(decimal pProjectModel)
         {
             List<BOM> LstObjBom = new List<BOM>();
             foreach (DataGridViewRow gvr in dataGridView2.Rows)
@@ -339,8 +254,8 @@ namespace Procurement
                 {
                     BOM lObjBom = new BOM();
                     //lObjBom.BOMCode = (string)gvr.Cells[0].Value;
-                    lObjBom.BOMTypeCode = 2;//(string)gvr.Cells[0].Value;
-                    lObjBom.ProjectCode = pProjectModel.ProjectCode;
+                    lObjBom.BOMTypeCode = 1;//(string)gvr.Cells[0].Value;
+                    lObjBom.ProjectCode = pProjectModel;
 
                     lObjBom.SORef = gvr.Cells[0].Value.ToString();
                     lObjBom.SerialNo = gvr.Cells[1].Value.ToString();
@@ -362,7 +277,7 @@ namespace Procurement
                     lObjBom.ExPrice = gvr.Cells[17].Value.ToString();
 
                     LstObjBom.Add(lObjBom);
-                    pProjectModel.BOMs.Add(lObjBom);
+
 
                 }
 
@@ -371,7 +286,7 @@ namespace Procurement
             return LstObjBom;
 
         }
-        private List<BOM> FillBOMModel3(ref Project pProjectModel)
+        private List<BOM> FillBOMModel3(decimal pProjectModel)
         {
             List<BOM> LstObjBom = new List<BOM>();
             foreach (DataGridViewRow gvr in dataGridView3.Rows)
@@ -396,8 +311,8 @@ namespace Procurement
                 {
                     BOM lObjBom = new BOM();
                     //lObjBom.BOMCode = (string)gvr.Cells[0].Value;
-                    lObjBom.BOMTypeCode = 3;//(string)gvr.Cells[0].Value;
-                    lObjBom.ProjectCode = pProjectModel.ProjectCode;
+                    lObjBom.BOMTypeCode = 1;//(string)gvr.Cells[0].Value;
+                    lObjBom.ProjectCode = pProjectModel;
 
                     lObjBom.SORef = gvr.Cells[0].Value.ToString();
                     lObjBom.SerialNo = gvr.Cells[1].Value.ToString();
@@ -419,7 +334,7 @@ namespace Procurement
                     lObjBom.ExPrice = gvr.Cells[17].Value.ToString();
 
                     LstObjBom.Add(lObjBom);
-                    pProjectModel.BOMs.Add(lObjBom);
+
 
                 }
 
@@ -431,7 +346,7 @@ namespace Procurement
         private Project FillProjectModel()
         {
             Project lObjProj = new Project();
-            if (_newMode == false) lObjProj.ProjectCode = decimal.Parse(txtProjectCode.Text);
+            //lObjProj.ProjectCode = decimal.Parse(txtProjectCode.Text);
             lObjProj.ProjectName = txtProjectName.Text;
             lObjProj.EndUser = txtProjectEndUser.Text;
             lObjProj.Customer = txtProjectCustomerName.Text;
@@ -441,24 +356,18 @@ namespace Procurement
 
         private void dataGridViewProjects_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewProjects.SelectedCells.Count > 0 && dataGridViewProjects.SelectedCells[0].Value != DBNull.Value)
+            if (dataGridViewProjects.SelectedCells.Count > 0)
             {
                 int selectedrowindex = dataGridViewProjects.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dataGridViewProjects.Rows[selectedrowindex];
                 _projectCode = Convert.ToDecimal(selectedRow.Cells["ProjectCode"].Value);
                 //MessageBox.Show(a);
-                if ( !string.IsNullOrEmpty(txtProjectCode.Text) && _projectCode == decimal.Parse(txtProjectCode.Text)) return;
 
-                _pc = new ProjectController();
-                Project project = _pc.GetModelByID(_projectCode);
-                if (project == null) return;
-                txtProjectCode.Text = project.ProjectCode.ToString();
-                txtProjectName.Text = project.ProjectName;
-                txtProjectCustomerName.Text = project.Customer;
-                txtProjectEndUser.Text = project.Customer;
 
-                
 
+
+                BOMController bc = new BOMController();
+                ProjectController pc = new ProjectController();
                 //List<BOM> LstObjBom;
 
 
@@ -486,75 +395,106 @@ namespace Procurement
 
 
 
-                //var source1 = new BindingSource();
+                var source1 = new BindingSource();
                 //List<BOM> list = new List<BOM> { new MyStruct("fff", "b"), new MyStruct("c", "d") };
-                if (_newMode == false)
+                List<BOM> list = bc.GetModels().Where(x => x.ProjectCode == _projectCode).ToList();
+
+                //public DataTable ToDataTable<T>(List<T> items)
+                DataTable UserDt = ToDataTable<BOM>(list);
+                UserDt.Columns.Remove("ProjectCode");
+                UserDt.Columns.Remove("RowAuto");
+                UserDt.Columns.Remove("BomTypeCode");
+                UserDt.Columns.Remove("BOMType");
+                UserDt.Columns.Remove("Project");
+
+                //ToDataTable<BOM>(List<BOM> list);
+                dataGridView1.DataSource = UserDt;
+                //dataGridView1.DataBind();
+
+                //source1.DataSource = list.Where(x => x.BOMTypeCode == 1).Select(x => new
+                //{
+                //    x.SORef,
+                //    x.SerialNo,
+                //    x.ProductCategory,
+                //    x.Product,
+                //    x.CostHead,
+                //    x.CostSubHead,
+                //    x.System,
+                //    x.Area,
+                //    x.Panel,
+                //    x.Category,
+                //    x.Manufacturer,
+                //    x.PartNo,
+                //    x.Description,
+                //    x.Qty,
+                //    x.UnitCost,
+                //    x.ExCost,
+                //    x.UnitPrice,
+                //    x.ExPrice
+                //});
+                //dataGridView1.DataSource = source1;
+                //this.dataGridView1.AllowUserToAddRows = true;
+                var source2 = new BindingSource();
+                source2.DataSource = list.Where(x => x.BOMTypeCode == 2).Select(x => new
                 {
-                    //List<BOM> allList = _bc.GetModels().Where(x => x.ProjectCode == _projectCode).ToList();
-                    //List<BOM> list1 = allList.Where(x => x.BOMTypeCode == 1).ToList();
-                    
-                    ////TO Handle just added. so that not loading agin and again.
-                    //if (_LstProjects.Where(x => x.ProjectCode == _projectCode).FirstOrDefault() == null) 
-                    //{
-                    //    //ClearAll();
-                    //    return;
-                    //}
+                    x.SORef,
+                    x.SerialNo,
+                    x.ProductCategory,
+                    x.Product,
+                    x.CostHead,
+                    x.CostSubHead,
+                    x.System,
+                    x.Area,
+                    x.Panel,
+                    x.Category,
+                    x.Manufacturer,
+                    x.PartNo,
+                    x.Description,
+                    x.Qty,
+                    x.UnitCost,
+                    x.ExCost,
+                    x.UnitPrice,
+                    x.ExPrice
+                });
+                dataGridView2.DataSource = source2;
+                this.dataGridView2.AllowUserToAddRows = true;
+                var source3 = new BindingSource();
+                source3.DataSource = list.Where(x => x.BOMTypeCode == 3).Select(x => new
+                {
+                    x.SORef,
+                    x.SerialNo,
+                    x.ProductCategory,
+                    x.Product,
+                    x.CostHead,
+                    x.CostSubHead,
+                    x.System,
+                    x.Area,
+                    x.Panel,
+                    x.Category,
+                    x.Manufacturer,
+                    x.PartNo,
+                    x.Description,
+                    x.Qty,
+                    x.UnitCost,
+                    x.ExCost,
+                    x.UnitPrice,
+                    x.ExPrice
+                });
+                dataGridView3.DataSource = source3;
+                this.dataGridView3.AllowUserToAddRows = true;
 
-                    List<BOM> list1 = _LstProjects.Where(x => x.ProjectCode == _projectCode).FirstOrDefault().BOMs.Where(y => y.BOMTypeCode == 1).ToList();
-                    _dtSalesBOM = ToDataTable<BOM>(list1);
-                    _dtSalesBOM.Columns.Remove("ProjectCode");
-                    _dtSalesBOM.Columns.Remove("RowAuto");
-                    _dtSalesBOM.Columns.Remove("BomTypeCode");
-                    _dtSalesBOM.Columns.Remove("BOMType");
-                    _dtSalesBOM.Columns.Remove("Project");
-                    dataGridView1.DataSource = _dtSalesBOM;
-                    //dataGridView1.DataBind();
 
-                    //source1.DataSource = list.Where(x => x.BOMTypeCode == 1).Select(x => new
-                    //{
-                    //    x.SORef,
-                    //    x.SerialNo,
-                    //    x.ProductCategory,
-                    //    x.Product,
-                    //    x.CostHead,
-                    //    x.CostSubHead,
-                    //    x.System,
-                    //    x.Area,
-                    //    x.Panel,
-                    //    x.Category,
-                    //    x.Manufacturer,
-                    //    x.PartNo,
-                    //    x.Description,
-                    //    x.Qty,
-                    //    x.UnitCost,
-                    //    x.ExCost,
-                    //    x.UnitPrice,
-                    //    x.ExPrice
-                    //});
-                    //dataGridView1.DataSource = source1;
-                    //this.dataGridView1.AllowUserToAddRows = true;
+                Project project = pc.GetModelByID(_projectCode);
+                txtProjectCode.Text = project.ProjectCode.ToString();
+                txtProjectName.Text = project.ProjectName;
+                txtProjectCustomerName.Text = project.Customer;
+                txtProjectEndUser.Text = project.Customer;
 
 
-                    //List<BOM> list2 = allList.Where(x => x.BOMTypeCode == 2).ToList();
-                    List<BOM> list2 = _LstProjects.Where(x => x.ProjectCode == _projectCode).FirstOrDefault().BOMs.Where(y => y.BOMTypeCode == 2).ToList();
-                    _dtDesignBOM = ToDataTable<BOM>(list2);
-                    _dtDesignBOM.Columns.Remove("ProjectCode");
-                    _dtDesignBOM.Columns.Remove("RowAuto");
-                    _dtDesignBOM.Columns.Remove("BomTypeCode");
-                    _dtDesignBOM.Columns.Remove("BOMType");
-                    _dtDesignBOM.Columns.Remove("Project");
-                    dataGridView2.DataSource = _dtDesignBOM ;
 
-                    //List<BOM> list3 = allList.Where(x => x.BOMTypeCode == 3).ToList();
-                    List<BOM> list3 = _LstProjects.Where(x => x.ProjectCode == _projectCode).FirstOrDefault().BOMs.Where(y => y.BOMTypeCode == 3).ToList();
-                    _dtActualBOM = ToDataTable<BOM>(list3);
-                    _dtActualBOM.Columns.Remove("ProjectCode");
-                    _dtActualBOM.Columns.Remove("RowAuto");
-                    _dtActualBOM.Columns.Remove("BomTypeCode");
-                    _dtActualBOM.Columns.Remove("BOMType");
-                    _dtActualBOM.Columns.Remove("Project");
-                    dataGridView3.DataSource = _dtActualBOM;
-                }
+
+
+
             }
 
         }
@@ -584,121 +524,5 @@ namespace Procurement
             //put a breakpoint here and check datatable
             return dataTable;
         }
-
-        private void btnNewProject_Click(object sender, EventArgs e)
-        {
-            txtProjectCode.Text = string.Empty;
-            ClearAll();
-            _newMode = true;
-        }
-
-         private void ClearAll()
-        {
-            if (_dtSalesBOM != null) _dtSalesBOM.Rows.Clear();
-            if (_dtDesignBOM != null) _dtDesignBOM.Rows.Clear();
-            if (_dtActualBOM != null) _dtActualBOM.Rows.Clear();
-            
-            txtProjectName.Text = string.Empty;
-            txtProjectCustomerName.Text = string.Empty;
-            txtProjectEndUser.Text = string.Empty;
-            txtBOMFilePath.Text = string.Empty;
-
-            //preReq
-            
-
-            //int maxId = db.Customers.DefaultIfEmpty().Max(p => p == null ? 0 : p.Id);
-
-            txtProjectCode.Text = _pc.GetMaxProjectCode().ToString();
-            //_pc.GetModels
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnResize_Click(object sender, EventArgs e)
-        {
-            if (splitContainer1.SplitterDistance < 51)
-            {
-                splitContainer1.SplitterDistance = 200;
-            }
-            else
-            {
-                splitContainer1.SplitterDistance = 49;
-            }
-            
-
-        }
-
-        //private void dataGridView2_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    //mnuCopyAllToDesignBOM.ShowDropDown();
-        //    //contextMenuStrip1.Show(Cursor.Position.X, Cursor.Position.Y);
-        //    if (e.Button == System.Windows.Forms.MouseButtons.Right)
-        //    {
-        //        MenuStripDesignBOM.Show(Cursor.Position);
-        //    }
-        //}
-        //private void mnuCopyAllToActualBOM_Click(object sender, EventArgs e)
-        //{
-        //    DataTable dtActualBOM = new DataTable();
-        //    dtActualBOM = _dtDesignBOM.Copy();
-
-        //    //dataGridView2.DataSource =dataGridView1.DataSource;
-        //    dataGridView3.DataSource = dtActualBOM;
-        //    tabControl1.SelectedTab = tabActualBOM;
-
-        //}
-        private void dataGridViewProjects_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                // Add this
-                dataGridViewProjects.CurrentCell = dataGridViewProjects.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                // Can leave these here - doesn't hurt
-                dataGridViewProjects.Rows[e.RowIndex].Selected = true;
-                dataGridViewProjects.Focus();
-
-                
-            }
-        }
-        private void dataGridViewProjects_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                
-                MenuStripProjects.Show(Cursor.Position);
-            }
-        }
-
-        private void itemDeleteProject_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewProjects.Rows.Count > 0 && dataGridViewProjects.SelectedRows.Count >0 )
-            {
-                // int selectedrowindex = dataGridViewProjects.SelectedCells[0].RowIndex;
-                // DataGridViewRow selectedRow = dataGridViewProjects.Rows[selectedrowindex];
-                // _projectCode = Convert.ToDecimal(selectedRow.Cells["ProjectCode"].Value);
-
-                //// _dtProjects.Rows.Remove(selectedRow);
-                // dataGridViewProjects.DataSource = _dtProjects;
-
-                foreach (DataGridViewRow sr in this.dataGridViewProjects.SelectedRows)
-                {
-                    
-                    //Project project = (Project)item.DataBoundItem;
-                    decimal pc= Convert.ToDecimal(sr.Cells[0].Value);
-                    Project proj= _LstProjects.Where(x=>x.ProjectCode==pc).FirstOrDefault();
-                    if(proj !=null) _LstProjects.Remove(proj);
-                    _dtProjects.Rows.RemoveAt(sr.Index);
-                    //_LstProjects.RemoveAt()
-                    _pc.DeleteModel(proj.ProjectCode);
-                }
-
-            }
-
-        }
-
-      
     }
 }

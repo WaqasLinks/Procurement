@@ -30,10 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBOM));
-            this.txtBOMFilePath = new System.Windows.Forms.TextBox();
-            this.LoadBOM = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnSave = new System.Windows.Forms.Button();
             this.txtProjectEndUser = new System.Windows.Forms.TextBox();
             this.txtProjectCustomerName = new System.Windows.Forms.TextBox();
             this.txtProjectName = new System.Windows.Forms.TextBox();
@@ -48,18 +46,18 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabActualBOM = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.MenuStripSaleBOM = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.itmCopyAllToDesignBOM = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCopyAllToDesignBOM = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripDesignBOM = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.itmCopyAllToActualBOM = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCopyAllToActualBOM = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnResize = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.btnNewProject = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.dataGridViewProjects = new System.Windows.Forms.DataGridView();
-            this.MenuStripProjects = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.itemDeleteProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.LoadBOM = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabSaleBOM.SuspendLayout();
@@ -74,94 +72,73 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProjects)).BeginInit();
-            this.MenuStripProjects.SuspendLayout();
             this.SuspendLayout();
             // 
-            // txtBOMFilePath
+            // textBox1
             // 
-            this.txtBOMFilePath.Location = new System.Drawing.Point(19, 66);
-            this.txtBOMFilePath.Multiline = true;
-            this.txtBOMFilePath.Name = "txtBOMFilePath";
-            this.txtBOMFilePath.Size = new System.Drawing.Size(885, 30);
-            this.txtBOMFilePath.TabIndex = 0;
-            // 
-            // LoadBOM
-            // 
-            this.LoadBOM.BackColor = System.Drawing.Color.SteelBlue;
-            this.LoadBOM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoadBOM.ForeColor = System.Drawing.Color.Transparent;
-            this.LoadBOM.Location = new System.Drawing.Point(910, 65);
-            this.LoadBOM.Name = "LoadBOM";
-            this.LoadBOM.Size = new System.Drawing.Size(97, 32);
-            this.LoadBOM.TabIndex = 1;
-            this.LoadBOM.Text = "Load";
-            this.LoadBOM.UseVisualStyleBackColor = false;
-            this.LoadBOM.Click += new System.EventHandler(this.LoadBOM_Click);
+            this.textBox1.Location = new System.Drawing.Point(19, 66);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(885, 30);
+            this.textBox1.TabIndex = 0;
             // 
             // dataGridView1
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1342, 673);
+            this.dataGridView1.Size = new System.Drawing.Size(1220, 461);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.ForeColor = System.Drawing.Color.Black;
-            this.btnSave.Location = new System.Drawing.Point(1255, 816);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(97, 30);
-            this.btnSave.TabIndex = 17;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtProjectEndUser
             // 
             this.txtProjectEndUser.Location = new System.Drawing.Point(432, 28);
+            this.txtProjectEndUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtProjectEndUser.Multiline = true;
             this.txtProjectEndUser.Name = "txtProjectEndUser";
-            this.txtProjectEndUser.Size = new System.Drawing.Size(130, 30);
+            this.txtProjectEndUser.Size = new System.Drawing.Size(129, 30);
             this.txtProjectEndUser.TabIndex = 16;
             // 
             // txtProjectCustomerName
             // 
-            this.txtProjectCustomerName.Location = new System.Drawing.Point(294, 28);
+            this.txtProjectCustomerName.Location = new System.Drawing.Point(293, 28);
+            this.txtProjectCustomerName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtProjectCustomerName.Multiline = true;
             this.txtProjectCustomerName.Name = "txtProjectCustomerName";
-            this.txtProjectCustomerName.Size = new System.Drawing.Size(130, 30);
+            this.txtProjectCustomerName.Size = new System.Drawing.Size(129, 30);
             this.txtProjectCustomerName.TabIndex = 15;
             // 
             // txtProjectName
             // 
             this.txtProjectName.Location = new System.Drawing.Point(157, 28);
+            this.txtProjectName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtProjectName.Multiline = true;
             this.txtProjectName.Name = "txtProjectName";
-            this.txtProjectName.Size = new System.Drawing.Size(130, 30);
+            this.txtProjectName.Size = new System.Drawing.Size(129, 30);
             this.txtProjectName.TabIndex = 14;
             // 
             // txtProjectCode
             // 
             this.txtProjectCode.Location = new System.Drawing.Point(19, 28);
+            this.txtProjectCode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtProjectCode.Multiline = true;
             this.txtProjectCode.Name = "txtProjectCode";
-            this.txtProjectCode.ReadOnly = true;
-            this.txtProjectCode.Size = new System.Drawing.Size(130, 30);
-            this.txtProjectCode.TabIndex = 13;
+            this.txtProjectCode.Size = new System.Drawing.Size(129, 30);
+            this.txtProjectCode.TabIndex = 0;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(429, 8);
+            this.label4.Location = new System.Drawing.Point(429, 7);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 17);
             this.label4.TabIndex = 12;
@@ -170,7 +147,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(291, 8);
+            this.label3.Location = new System.Drawing.Point(291, 7);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(109, 17);
             this.label3.TabIndex = 11;
@@ -179,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(154, 8);
+            this.label2.Location = new System.Drawing.Point(155, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 17);
             this.label2.TabIndex = 10;
@@ -188,7 +165,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 8);
+            this.label1.Location = new System.Drawing.Point(16, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 17);
             this.label1.TabIndex = 9;
@@ -203,18 +180,20 @@
             this.tabControl1.Controls.Add(this.tabDesignBOM);
             this.tabControl1.Controls.Add(this.tabActualBOM);
             this.tabControl1.Location = new System.Drawing.Point(3, 102);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1356, 708);
+            this.tabControl1.Size = new System.Drawing.Size(1234, 494);
             this.tabControl1.TabIndex = 18;
             // 
             // tabSaleBOM
             // 
             this.tabSaleBOM.Controls.Add(this.dataGridView1);
             this.tabSaleBOM.Location = new System.Drawing.Point(4, 25);
+            this.tabSaleBOM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabSaleBOM.Name = "tabSaleBOM";
-            this.tabSaleBOM.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSaleBOM.Size = new System.Drawing.Size(1348, 679);
+            this.tabSaleBOM.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabSaleBOM.Size = new System.Drawing.Size(1226, 465);
             this.tabSaleBOM.TabIndex = 0;
             this.tabSaleBOM.Text = "Sale BOM";
             this.tabSaleBOM.UseVisualStyleBackColor = true;
@@ -223,9 +202,10 @@
             // 
             this.tabDesignBOM.Controls.Add(this.dataGridView2);
             this.tabDesignBOM.Location = new System.Drawing.Point(4, 25);
+            this.tabDesignBOM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabDesignBOM.Name = "tabDesignBOM";
-            this.tabDesignBOM.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDesignBOM.Size = new System.Drawing.Size(1243, 465);
+            this.tabDesignBOM.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabDesignBOM.Size = new System.Drawing.Size(1225, 465);
             this.tabDesignBOM.TabIndex = 1;
             this.tabDesignBOM.Text = "Design BOM";
             this.tabDesignBOM.UseVisualStyleBackColor = true;
@@ -235,11 +215,12 @@
             this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView2.Location = new System.Drawing.Point(3, 2);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(1237, 459);
+            this.dataGridView2.Size = new System.Drawing.Size(1219, 461);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseClick);
             // 
@@ -247,9 +228,10 @@
             // 
             this.tabActualBOM.Controls.Add(this.dataGridView3);
             this.tabActualBOM.Location = new System.Drawing.Point(4, 25);
+            this.tabActualBOM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabActualBOM.Name = "tabActualBOM";
-            this.tabActualBOM.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActualBOM.Size = new System.Drawing.Size(1243, 465);
+            this.tabActualBOM.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabActualBOM.Size = new System.Drawing.Size(1225, 465);
             this.tabActualBOM.TabIndex = 2;
             this.tabActualBOM.Text = "Actual BOM";
             this.tabActualBOM.UseVisualStyleBackColor = true;
@@ -259,102 +241,76 @@
             this.dataGridView3.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView3.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView3.Location = new System.Drawing.Point(3, 2);
+            this.dataGridView3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(1237, 459);
+            this.dataGridView3.Size = new System.Drawing.Size(1219, 461);
             this.dataGridView3.TabIndex = 3;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.ForeColor = System.Drawing.Color.Black;
-            this.btnCancel.ImageKey = "Yes.bmp";
-            this.btnCancel.Location = new System.Drawing.Point(1152, 816);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(97, 30);
-            this.btnCancel.TabIndex = 19;
-            this.btnCancel.Text = "Close";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // MenuStripSaleBOM
             // 
             this.MenuStripSaleBOM.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuStripSaleBOM.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmCopyAllToDesignBOM});
+            this.mnuCopyAllToDesignBOM});
             this.MenuStripSaleBOM.Name = "contextMenuStrip1";
             this.MenuStripSaleBOM.Size = new System.Drawing.Size(240, 28);
             // 
-            // itmCopyAllToDesignBOM
+            // mnuCopyAllToDesignBOM
             // 
-            this.itmCopyAllToDesignBOM.Name = "itmCopyAllToDesignBOM";
-            this.itmCopyAllToDesignBOM.Size = new System.Drawing.Size(239, 24);
-            this.itmCopyAllToDesignBOM.Text = "Copy All to Design BOM";
-            this.itmCopyAllToDesignBOM.Click += new System.EventHandler(this.itmCopyAllToDesignBOM_Click);
+            this.mnuCopyAllToDesignBOM.Name = "mnuCopyAllToDesignBOM";
+            this.mnuCopyAllToDesignBOM.Size = new System.Drawing.Size(239, 24);
+            this.mnuCopyAllToDesignBOM.Text = "Copy All to Design BOM";
+            this.mnuCopyAllToDesignBOM.Click += new System.EventHandler(this.mnuCopyAllToDesignBOM_Click);
             // 
             // MenuStripDesignBOM
             // 
             this.MenuStripDesignBOM.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuStripDesignBOM.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmCopyAllToActualBOM});
+            this.mnuCopyAllToActualBOM});
             this.MenuStripDesignBOM.Name = "contextMenuStrip1";
             this.MenuStripDesignBOM.Size = new System.Drawing.Size(236, 28);
             // 
-            // itmCopyAllToActualBOM
+            // mnuCopyAllToActualBOM
             // 
-            this.itmCopyAllToActualBOM.Name = "itmCopyAllToActualBOM";
-            this.itmCopyAllToActualBOM.Size = new System.Drawing.Size(235, 24);
-            this.itmCopyAllToActualBOM.Text = "Copy All to Actual BOM";
-            this.itmCopyAllToActualBOM.Click += new System.EventHandler(this.itmCopyAllToActualBOM_Click);
+            this.mnuCopyAllToActualBOM.Name = "mnuCopyAllToActualBOM";
+            this.mnuCopyAllToActualBOM.Size = new System.Drawing.Size(235, 24);
+            this.mnuCopyAllToActualBOM.Text = "Copy All to Actual BOM";
+            this.mnuCopyAllToActualBOM.Click += new System.EventHandler(this.mnuCopyAllToActualBOM_Click);
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnResize);
-            this.splitContainer1.Panel1.Controls.Add(this.btnNewProject);
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.dataGridViewProjects);
+            this.splitContainer1.Panel1.Controls.Add(this.button2);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.button5);
+            this.splitContainer1.Panel2.Controls.Add(this.btnSave);
+            this.splitContainer1.Panel2.Controls.Add(this.LoadBOM);
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.txtProjectCode);
-            this.splitContainer1.Panel2.Controls.Add(this.txtBOMFilePath);
-            this.splitContainer1.Panel2.Controls.Add(this.LoadBOM);
-            this.splitContainer1.Panel2.Controls.Add(this.btnCancel);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Panel2.Controls.Add(this.btnSave);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.txtProjectEndUser);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.txtProjectCustomerName);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.txtProjectName);
-            this.splitContainer1.Size = new System.Drawing.Size(1582, 853);
-            this.splitContainer1.SplitterDistance = 216;
+            this.splitContainer1.Size = new System.Drawing.Size(1461, 639);
+            this.splitContainer1.SplitterDistance = 219;
             this.splitContainer1.TabIndex = 20;
-            // 
-            // btnResize
-            // 
-            this.btnResize.BackColor = System.Drawing.Color.White;
-            this.btnResize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnResize.ForeColor = System.Drawing.Color.Transparent;
-            this.btnResize.ImageKey = "Left-right.bmp";
-            this.btnResize.ImageList = this.imageList1;
-            this.btnResize.Location = new System.Drawing.Point(14, 6);
-            this.btnResize.Name = "btnResize";
-            this.btnResize.Size = new System.Drawing.Size(40, 40);
-            this.btnResize.TabIndex = 21;
-            this.btnResize.UseVisualStyleBackColor = false;
-            this.btnResize.Click += new System.EventHandler(this.btnResize_Click);
             // 
             // imageList1
             // 
@@ -511,63 +467,91 @@
             this.imageList1.Images.SetKeyName(148, "Yes.bmp");
             this.imageList1.Images.SetKeyName(149, "Zoom.bmp");
             // 
-            // btnNewProject
+            // button2
             // 
-            this.btnNewProject.BackColor = System.Drawing.Color.White;
-            this.btnNewProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNewProject.ForeColor = System.Drawing.Color.Transparent;
-            this.btnNewProject.ImageKey = "Create.bmp";
-            this.btnNewProject.ImageList = this.imageList1;
-            this.btnNewProject.Location = new System.Drawing.Point(60, 6);
-            this.btnNewProject.Name = "btnNewProject";
-            this.btnNewProject.Size = new System.Drawing.Size(40, 40);
-            this.btnNewProject.TabIndex = 20;
-            this.btnNewProject.UseVisualStyleBackColor = false;
-            this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Transparent;
+            this.button2.ImageKey = "Create.bmp";
+            this.button2.ImageList = this.imageList1;
+            this.button2.Location = new System.Drawing.Point(3, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(40, 40);
+            this.button2.TabIndex = 20;
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // dataGridViewProjects
             // 
-            this.dataGridViewProjects.AllowUserToAddRows = false;
             this.dataGridViewProjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewProjects.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewProjects.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewProjects.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewProjects.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProjects.Location = new System.Drawing.Point(12, 52);
+            this.dataGridViewProjects.Location = new System.Drawing.Point(3, 101);
             this.dataGridViewProjects.Name = "dataGridViewProjects";
-            this.dataGridViewProjects.ReadOnly = true;
             this.dataGridViewProjects.RowHeadersVisible = false;
             this.dataGridViewProjects.RowHeadersWidth = 51;
             this.dataGridViewProjects.RowTemplate.Height = 24;
             this.dataGridViewProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProjects.Size = new System.Drawing.Size(201, 751);
-            this.dataGridViewProjects.TabIndex = 0;
-            this.dataGridViewProjects.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewProjects_CellMouseDown);
-            this.dataGridViewProjects.SelectionChanged += new System.EventHandler(this.dataGridViewProjects_SelectionChanged);
-            this.dataGridViewProjects.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewProjects_MouseClick);
+            this.dataGridViewProjects.Size = new System.Drawing.Size(213, 489);
+            this.dataGridViewProjects.TabIndex = 21;
             // 
-            // MenuStripProjects
+            // LoadBOM
             // 
-            this.MenuStripProjects.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.MenuStripProjects.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemDeleteProject});
-            this.MenuStripProjects.Name = "contextMenuStrip1";
-            this.MenuStripProjects.Size = new System.Drawing.Size(123, 28);
+            this.LoadBOM.Location = new System.Drawing.Point(910, 65);
+            this.LoadBOM.Name = "LoadBOM";
+            this.LoadBOM.Size = new System.Drawing.Size(75, 31);
+            this.LoadBOM.TabIndex = 20;
+            this.LoadBOM.Text = "Load";
+            this.LoadBOM.UseVisualStyleBackColor = true;
             // 
-            // itemDeleteProject
+            // btnSave
             // 
-            this.itemDeleteProject.Name = "itemDeleteProject";
-            this.itemDeleteProject.Size = new System.Drawing.Size(122, 24);
-            this.itemDeleteProject.Text = "Delete";
-            this.itemDeleteProject.Click += new System.EventHandler(this.itemDeleteProject_Click);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(1155, 600);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 31);
+            this.btnSave.TabIndex = 21;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(1074, 600);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 31);
+            this.button5.TabIndex = 22;
+            this.button5.Text = "Cancel";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Transparent;
+            this.button1.ImageKey = "Left-right.bmp";
+            this.button1.ImageList = this.imageList1;
+            this.button1.Location = new System.Drawing.Point(176, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(40, 40);
+            this.button1.TabIndex = 22;
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // FrmBOM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1582, 853);
+            this.ClientSize = new System.Drawing.Size(1461, 639);
             this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmBOM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BOM";
@@ -587,17 +571,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProjects)).EndInit();
-            this.MenuStripProjects.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtBOMFilePath;
-        private System.Windows.Forms.Button LoadBOM;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtProjectEndUser;
         private System.Windows.Forms.TextBox txtProjectCustomerName;
         private System.Windows.Forms.TextBox txtProjectName;
@@ -612,18 +593,18 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TabPage tabActualBOM;
         private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ContextMenuStrip MenuStripSaleBOM;
-        private System.Windows.Forms.ToolStripMenuItem itmCopyAllToDesignBOM;
+        private System.Windows.Forms.ToolStripMenuItem mnuCopyAllToDesignBOM;
         private System.Windows.Forms.ContextMenuStrip MenuStripDesignBOM;
-        private System.Windows.Forms.ToolStripMenuItem itmCopyAllToActualBOM;
+        private System.Windows.Forms.ToolStripMenuItem mnuCopyAllToActualBOM;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.DataGridView dataGridViewProjects;
-        private System.Windows.Forms.Button btnNewProject;
-        private System.Windows.Forms.Button btnResize;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ContextMenuStrip MenuStripProjects;
-        private System.Windows.Forms.ToolStripMenuItem itemDeleteProject;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dataGridViewProjects;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button LoadBOM;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -17,7 +17,7 @@ namespace Repository.DAL
             _context = new ProcurementEntities();
             dbEntity = _context.Set<T>();
         }
-        public void DeleteModel(string modelID)
+        public void DeleteModel(decimal modelID)
         {
             T model = dbEntity.Find(modelID);
             dbEntity.Remove(model);
@@ -28,6 +28,10 @@ namespace Repository.DAL
             return dbEntity.ToList();
         }
 
+        //public IEnumerable<T> GetModelsByID(decimal modelID)
+        //{
+        //    return dbEntity.AsQueryable().Where(x=>x.).ToList();
+        //}
         public T GetModelByID(decimal modelId)
         {
             return dbEntity.Find(modelId);
@@ -52,6 +56,10 @@ namespace Repository.DAL
         public void UpdateModel(T model)
         {
             _context.Entry(model).State = System.Data.Entity.EntityState.Modified;
+        }
+        public void ReseedProjectPk()
+        {
+            _context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('" + "Project"  +  "', RESEED, 0)");
         }
     }
 }

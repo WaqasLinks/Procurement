@@ -12,8 +12,8 @@
           <Property Name="RowAuto" Type="decimal" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectCode" Type="decimal" Precision="10" Scale="0" />
           <Property Name="BOMTypeCode" Type="smallint" />
-          <Property Name="SerialNo" Type="nvarchar" MaxLength="500" />
           <Property Name="SORef" Type="nvarchar" MaxLength="500" />
+          <Property Name="SerialNo" Type="nvarchar" MaxLength="500" />
           <Property Name="ProductCategory" Type="nvarchar" MaxLength="500" />
           <Property Name="Product" Type="nvarchar" MaxLength="500" />
           <Property Name="CostHead" Type="nvarchar" MaxLength="500" />
@@ -79,7 +79,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BOM_Project">
-          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Project">
@@ -175,8 +177,8 @@
           <Property Name="ProjectCode" Type="Decimal" Precision="10" Scale="0" />
           <Property Name="RowAuto" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BOMTypeCode" Type="Int16" />
-          <Property Name="SerialNo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="SORef" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ProductCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Product" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CostHead" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />

@@ -36,5 +36,38 @@ namespace Procurement.Controllers
         {
             return interfaceObj.GetModels().ToList<Project>();
         }
+        public void UpdateModel(Project model)
+        {
+            interfaceObj.UpdateModel(model);
+            interfaceObj.Save();
+        }
+
+        //public void GetMaxProjectCode()
+        //{
+        //    //interfaceObj.GetModels()
+
+        //    //    public void GetMaxProjectCode()
+        //    //{
+        //    //    //interfaceObj.GetMaxProjectCode();
+        //    //    int maxId = dbEntity.DefaultIfEmpty().Max(p => p == null ? 0 : p.);
+
+        //    //}
+
+        //}
+        public decimal GetMaxProjectCode()
+        {
+            List<Project> Projects = GetModels();
+            return Projects.DefaultIfEmpty().Max(p => p == null ? 1 : p.ProjectCode+1);
+        }
+        public void ReseedProjectPk()
+        {
+            interfaceObj.ReseedProjectPk();
+        }
+        public void DeleteModel(decimal modelID)
+        {
+            interfaceObj.DeleteModel(modelID);
+            interfaceObj.Save();
+        }
+
     }
 }

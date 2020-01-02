@@ -11,8 +11,9 @@ namespace Repository.DAL
         IEnumerable<T> GetModels();
         T GetModelByID(decimal modelId);
         void InsertModel(T model);
-        void DeleteModel(string modelID);
+        void DeleteModel(decimal modelID);
         void UpdateModel(T model);
         void Save();
+        void ReseedProjectPk();
     }
 }
